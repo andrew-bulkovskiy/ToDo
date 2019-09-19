@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ToDo.Application.ToDoItems.Queries.GetToDoItemsList;
 using ToDo.Persistence;
 
 namespace ToDo.Web
@@ -30,6 +33,10 @@ namespace ToDo.Web
             services.AddDbContext<ToDoDbContext>(options =>  options.UseSqlServer(Configuration.GetConnectionString("ToDoDatabase")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Adding some random QueryHandler from ToDo.Application project
+            // in order to force MediatR scann whole ToDo.Application assembly for Requests and RequestHandlers
+            services.AddMediatR(typeof(GetToDoItemsListQueryHandler).GetTypeInfo().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

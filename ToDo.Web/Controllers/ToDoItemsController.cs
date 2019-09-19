@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ToDo.Application.ToDoItems.Queries.GetToDoItemsList;
 using ToDo.Domain.Entities;
 using ToDo.Persistence;
 
@@ -15,18 +17,23 @@ namespace ToDo.Web.Controllers
     public class ToDoItemsController : ControllerBase
     {
         private readonly ToDoDbContext _context;
+        private readonly IMediator _mediator;
 
-        public ToDoItemsController(ToDoDbContext context)
+        public ToDoItemsController(IMediator mediator, ToDoDbContext context)
         {
+            _mediator = mediator;
             _context = context;
         }
 
         // GET: api/ToDoItems
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<IEnumerable<ToDoItem>>> GetToDoItems()
+        //public async Task<ActionResult<IEnumerable<ToDoItem>>> GetToDoItems()
+        public async Task<ActionResult<string>> GetToDoItems()
         {
-            return await _context.ToDoItems.ToListAsync();
+            var result = await _mediator.Send(new GetToDoItemsListQuery());
+            //return await _context.ToDoItems.Include(t => t.Category).ToListAsync();
+            return Ok(result);
         }
 
         // GET: api/ToDoItems/5
