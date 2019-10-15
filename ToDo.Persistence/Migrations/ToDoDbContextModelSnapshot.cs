@@ -19,9 +19,9 @@ namespace ToDo.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ToDo.Domain.Entities.Category", b =>
+            modelBuilder.Entity("ToDo.Domain.Entities.ToDoCategory", b =>
                 {
-                    b.Property<long>("CategoryId")
+                    b.Property<long>("ToDoCategoryId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -31,9 +31,9 @@ namespace ToDo.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(16);
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("ToDoCategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("ToDoCategories");
                 });
 
             modelBuilder.Entity("ToDo.Domain.Entities.ToDoItem", b =>
@@ -42,7 +42,7 @@ namespace ToDo.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("CategoryId");
+                    b.Property<long?>("CategoryToDoCategoryId");
 
                     b.Property<string>("Description");
 
@@ -54,16 +54,16 @@ namespace ToDo.Persistence.Migrations
 
                     b.HasKey("ToDoItemId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryToDoCategoryId");
 
                     b.ToTable("ToDoItems");
                 });
 
             modelBuilder.Entity("ToDo.Domain.Entities.ToDoItem", b =>
                 {
-                    b.HasOne("ToDo.Domain.Entities.Category", "Category")
+                    b.HasOne("ToDo.Domain.Entities.ToDoCategory", "Category")
                         .WithMany("ToDoItems")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryToDoCategoryId");
                 });
 #pragma warning restore 612, 618
         }

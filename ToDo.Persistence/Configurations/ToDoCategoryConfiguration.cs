@@ -4,11 +4,11 @@ using ToDo.Domain.Entities;
 
 namespace ToDo.Persistence.Configurations
 {
-    class CategoryConfiguration: IEntityTypeConfiguration<Category>
+    class ToDoCategoryConfiguration: IEntityTypeConfiguration<ToDoCategory>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<ToDoCategory> builder)
         {
-            builder.HasKey(e => e.CategoryId);
+            builder.HasKey(e => e.ToDoCategoryId);
 
             builder.Property(e => e.Name)
                 .IsRequired()

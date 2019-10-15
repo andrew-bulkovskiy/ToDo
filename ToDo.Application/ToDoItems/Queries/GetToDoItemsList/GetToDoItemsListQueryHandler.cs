@@ -4,11 +4,16 @@ using System.Threading.Tasks;
 
 namespace ToDo.Application.ToDoItems.Queries.GetToDoItemsList
 {
-    public class GetToDoItemsListQueryHandler : IRequestHandler<GetToDoItemsListQuery, string>
+    public class GetToDoItemsListQueryHandler : IRequestHandler<GetToDoItemsListQuery, ToDoItemListViewModel>
     {
-        public async Task<string> Handle(GetToDoItemsListQuery request, CancellationToken cancellationToken)
+        public async Task<ToDoItemListViewModel> Handle(GetToDoItemsListQuery request, CancellationToken cancellationToken)
         {
-            return "Hello world!";
+            var vm = new ToDoItemListViewModel
+            {
+                 
+            };
+
+            return vm;
         }
     }
 }

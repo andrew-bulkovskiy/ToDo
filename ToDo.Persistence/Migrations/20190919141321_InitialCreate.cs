@@ -9,17 +9,17 @@ namespace ToDo.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "ToDoCategories",
                 columns: table => new
                 {
-                    CategoryId = table.Column<long>(nullable: false)
+                    ToDoCategoryId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 16, nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.PrimaryKey("PK_ToDoCategories", x => x.ToDoCategoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,23 +32,23 @@ namespace ToDo.Persistence.Migrations
                     Description = table.Column<string>(nullable: true),
                     Time = table.Column<DateTime>(nullable: false),
                     Done = table.Column<bool>(nullable: false),
-                    CategoryId = table.Column<long>(nullable: true)
+                    CategoryToDoCategoryId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ToDoItems", x => x.ToDoItemId);
                     table.ForeignKey(
-                        name: "FK_ToDoItems_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "CategoryId",
+                        name: "FK_ToDoItems_ToDoCategories_CategoryToDoCategoryId",
+                        column: x => x.CategoryToDoCategoryId,
+                        principalTable: "ToDoCategories",
+                        principalColumn: "ToDoCategoryId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ToDoItems_CategoryId",
+                name: "IX_ToDoItems_CategoryToDoCategoryId",
                 table: "ToDoItems",
-                column: "CategoryId");
+                column: "CategoryToDoCategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -57,7 +57,7 @@ namespace ToDo.Persistence.Migrations
                 name: "ToDoItems");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ToDoCategories");
         }
     }
 }

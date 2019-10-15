@@ -7,7 +7,7 @@ namespace ToDo.Persistence
 {
     public class ToDoDbInitializer
     {
-        private readonly Dictionary<int, Category> Categories = new Dictionary<int, Category>();
+        private readonly Dictionary<int, ToDoCategory> ToDoCategories = new Dictionary<int, ToDoCategory>();
         private readonly Dictionary<int, ToDoItem> ToDoItems = new Dictionary<int, ToDoItem>();
 
         public static void Initialize(ToDoDbContext context)
@@ -33,21 +33,21 @@ namespace ToDo.Persistence
 
         public void SeedCategories(ToDoDbContext context)
         {
-            Categories.Add(1, new Category
+            ToDoCategories.Add(1, new ToDoCategory
             {
                 Name = "Home",
                 Description = "Home ToDo",
             });
 
-            Categories.Add(2, new Category
+            ToDoCategories.Add(2, new ToDoCategory
             {
                 Name = "Work",
                 Description = "Work ToDo",
             });
 
-            foreach (var category in Categories.Values)
+            foreach (var category in ToDoCategories.Values)
             {
-                context.Categories.Add(category);
+                context.ToDoCategories.Add(category);
             }
 
             context.SaveChanges();
@@ -61,7 +61,7 @@ namespace ToDo.Persistence
                 Description = "Clean Workspace",
                 Time = DateTime.UtcNow,
                 Done = false,
-                Category = Categories[1]
+                Category = ToDoCategories[1]
             });
 
             foreach (var toDoItem in ToDoItems.Values)

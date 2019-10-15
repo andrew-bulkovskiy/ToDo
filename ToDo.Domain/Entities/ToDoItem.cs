@@ -11,6 +11,6 @@ namespace ToDo.Domain.Entities
         public string Description { get; set; }
         public DateTime Time { get; set; }
         public bool Done { get; set; }
-        public Category Category { get; set; }
+        public ToDoCategory Category { get; set; }
     }
 }

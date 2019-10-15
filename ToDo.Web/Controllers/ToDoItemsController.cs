@@ -29,7 +29,7 @@ namespace ToDo.Web.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         //public async Task<ActionResult<IEnumerable<ToDoItem>>> GetToDoItems()
-        public async Task<ActionResult<string>> GetToDoItems()
+        public async Task<ActionResult<ToDoItemListViewModel>> GetToDoItems()
         {
             var result = await _mediator.Send(new GetToDoItemsListQuery());
             //return await _context.ToDoItems.Include(t => t.Category).ToListAsync();
